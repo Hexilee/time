@@ -22,11 +22,10 @@ type DateTime struct {
 func (t *DateTime) UnmarshalJSON(b []byte) (err error) {
 	s := strings.Trim(string(b), "\"")
 	if s == "null" {
-		*t = DateTime(time.Time{})
+		t.Time = time.Time{}
 		return
 	}
-	rawTime, err := time.Parse(StandardDatetime, s)
-	*t = DateTime(rawTime)
+	t.Time, err = time.Parse(StandardDatetime, s)
 	return
 }
 
@@ -44,12 +43,11 @@ type Date struct {
 func (t *Date) UnmarshalJSON(b []byte) (err error) {
 	s := strings.Trim(string(b), "\"")
 	if s == "null" {
-		*t = Date(time.Time{})
+		t.Time = time.Time{}
 		return
 	}
-	rawTime, err := time.Parse(StandardDate, s)
-	*t = Date(rawTime)
-	return
+	t.Time, err = time.Parse(StandardDate, s)
+	return 
 }
 
 func (t *Date) MarshalJSON() ([]byte, error) {
