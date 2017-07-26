@@ -1,4 +1,4 @@
-package time
+package stdTime
 
 import (
 	"strings"
@@ -47,7 +47,7 @@ func (t *Date) UnmarshalJSON(b []byte) (err error) {
 		return
 	}
 	t.Time, err = time.Parse(StandardDate, s)
-	return 
+	return
 }
 
 func (t *Date) MarshalJSON() ([]byte, error) {
@@ -55,4 +55,12 @@ func (t *Date) MarshalJSON() ([]byte, error) {
 		return []byte("null"), nil
 	}
 	return []byte(fmt.Sprintf("\"%s\"", t.Format(StandardDate))), nil
+}
+
+func NewDateTime(time *time.Time) *DateTime {
+	return &DateTime{*time}
+}
+
+func NewDate(time *time.Time) *Date {
+	return &Date{*time}
 }
